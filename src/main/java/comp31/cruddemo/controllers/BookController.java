@@ -64,4 +64,75 @@ public class BookController {
         return "authors"; //? Returns authors.html as well as returns all the authors in authors.html under the name authors
     }
 
+
+    //! Programming Assignment #2
+    @GetMapping("/LastNameStartingWith")
+    public String getLastNameStartingWith(Model model) {
+    
+        char letter = 'G';
+        model.addAttribute("authors", bookService.findLastNameStartingWith(letter));
+
+        return "authors";
+    
+    }
+
+    @GetMapping("/LastNameContaining")
+    public String getLastNameContaining(Model model) {
+    
+        String sequence = "ant";
+        model.addAttribute("authors", bookService.findLastNameContaining(sequence));
+
+        return "authors";
+    
+    }
+    
+    @GetMapping("/AuthorOrderByPriceDesc")
+    public String getAuthorOrderByPriceDesc(Model model) {
+    
+        String lastName = "Skeen";
+
+        model.addAttribute("books", bookService.findAuthorOrderByPriceDesc(lastName));
+
+        return "books";
+    
+    }
+
+    @GetMapping("/AuthorAndTitleContainingAndTitleContaining")
+    public String getAuthorAndTitleContainingAndTitleContaining(Model model) {
+    
+        String lastName = "Skeen";
+        String keyword1 = "Big";
+        String keyword2 = "Guide";
+
+        model.addAttribute("books", bookService.findAuthorAndTitleContainingAndTitleContaining(lastName, keyword1, keyword2));
+
+        return "books";
+    
+    }
+
+    @GetMapping("/AuthorAndTitleNotContaining")
+    public String getAuthorAndTitleNotContaining(Model model) {
+    
+        String lastName = "Savich";
+        String keyword = "Introduction";
+
+        model.addAttribute("books", bookService.findAuthorAndTitleNotContaining(lastName, keyword));
+
+        return "books";
+    
+    }
+
+    @GetMapping("/AuthorAndTitleContainingAndTitleNotContaining")
+    public String getAuthorAndTitleContainingAndTitleNotContaining(Model model) {
+    
+        String lastName = "Savich";
+        String isKeyword = "Java";
+        String notKeyword = "Introduction";
+
+        model.addAttribute("books", bookService.findAuthorAndTitleContainingAndTitleNotContaining(lastName, isKeyword, notKeyword));
+
+        return "books";
+    
+    }
+
 }

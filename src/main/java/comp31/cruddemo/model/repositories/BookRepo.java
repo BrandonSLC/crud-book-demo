@@ -17,5 +17,11 @@ public interface BookRepo extends CrudRepository<Book,Long> {
     List<Book> findByYearOrderByAuthorLastNameDesc(String year); //? Automatically creates the correct search for year and sorts it in descending order
     List<Book> findByTitleContaining(String keyword); //? Automatically creates the correct search for title with the specified title name
     List<Book> findByAuthorAndTitleContaining(Author author, String keyword); //? Automatically creates the correct search for author with the specified title name
+
+    //! Programming Assignment #2
+    List<Book> findByAuthorOrderByPriceDesc(Author author);
+    List<Book> findByAuthorAndTitleContainingAndTitleContaining(Author author, String keyword1, String keyword2);
+    List<Book> findByAuthorAndTitleNotContaining(Author author, String keyword1);
+    List<Book> findByAuthorAndTitleContainingAndTitleNotContaining(Author author, String isKeyword, String notKeyword);
     
 }

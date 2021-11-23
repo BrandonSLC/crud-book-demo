@@ -15,4 +15,8 @@ public interface AuthorRepo extends CrudRepository<Author,Long> {
     List<Author> findByFirstNameAndLastName(String firstName, String lastName); //? Automatically builds the correct search for firstName and lastName due to naming convention "findBy + Variable Name + And + Variable Name" and camel case
     //? List<Author> findByFirstNameIgnoreCaseAndLastNameIgnoreCase(String firstName, String lastName) would ignore the case sensitivity of first name and last name
 
+    //! Programming Assignment #2
+    List<Author> findByLastNameStartingWithIgnoreCase(char letter);
+    List<Author> findByLastNameContainingIgnoreCase(String sequence);
+
 }

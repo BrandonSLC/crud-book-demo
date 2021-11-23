@@ -51,12 +51,53 @@ public class BookService {
 
     public List<Book> test()
     {
-        //return bookRepo.findByYear("2018"); //? Returns a list of books from the year 2018
-        //return bookRepo.findByYearOrderByAuthorLastNameAsc("2018"); //? Returns a list of books from the year 2018 with the authors last name is ascending order
-        //return bookRepo.findByTitleContaining("Java"); //? Returns a list of books with the title containing the word Java
-        Author author = authorRepo.findOneByLastName("Savich"); //? Returns the first author with the last name Savich
+        Author author = authorRepo.findOneByLastName("Savich");
+        return bookRepo.findByAuthorOrderByPriceDesc(author);
+    }
 
-        return bookRepo.findByAuthorAndTitleContaining(author, "Java"); //? Returns all of Savich's books containing the word Java in the title
+    //! Programming Assignment #2
+    public List<Author> findLastNameStartingWith(char letter) {
+    
+        return authorRepo.findByLastNameStartingWithIgnoreCase(letter);
+    
+    }
+
+    public List<Author> findLastNameContaining(String sequence) {
+    
+        return authorRepo.findByLastNameContainingIgnoreCase(sequence);
+    
+    }
+
+    public List<Book> findAuthorOrderByPriceDesc(String lastName) {
+
+        Author author = authorRepo.findOneByLastName(lastName);
+
+        return bookRepo.findByAuthorOrderByPriceDesc(author);
+    
+    }
+
+    public List<Book> findAuthorAndTitleContainingAndTitleContaining(String lastName, String keyword1, String keyword2) {
+
+        Author author = authorRepo.findOneByLastName(lastName);
+    
+        return bookRepo.findByAuthorAndTitleContainingAndTitleContaining(author, keyword1, keyword2);
+    
+    }
+
+    public List<Book> findAuthorAndTitleNotContaining(String lastName, String keyword) {
+
+        Author author = authorRepo.findOneByLastName(lastName);
+    
+        return bookRepo.findByAuthorAndTitleNotContaining(author, keyword);
+    
+    }
+
+    public List<Book> findAuthorAndTitleContainingAndTitleNotContaining(String lastName, String isKeyword, String notKeyword) {
+
+        Author author = authorRepo.findOneByLastName(lastName);
+    
+        return bookRepo.findByAuthorAndTitleContainingAndTitleNotContaining(author, isKeyword, notKeyword);
+    
     }
 
 }
