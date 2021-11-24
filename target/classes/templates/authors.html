@@ -22,6 +22,25 @@
     <h1 class="heading">Authors Page</h1>
     <div th:insert="fragments/frags :: navbar" class="navbar">
     </div>
+
+    <h1 class="heading">Find Author With Their Last Name Starting With The Specified Letter</h1>
+    <form action="/LastNameStartingWith" class="center">
+        <label for="letter">Last Name Starts With</label>
+        <input type="text" name="letter" , id="letter" />
+        <br />
+        <input type="submit" value="Send" />
+    </form>
+    <br />
+
+    <h1 class="heading">Find Author With Their Last Name Containing The Specified Letters</h1>
+    <form action="/LastNameContaining" class="center">
+        <label for="sequence">Last Name Contains</label>
+        <input type="text" name="sequence" , id="sequence" />
+        <br />
+        <input type="submit" value="Send" />
+    </form>
+    <br />
+
     <!--? Displays a table containing the authors' first and last names along with the books they wrote-->
     <table class="border">
         <tr>

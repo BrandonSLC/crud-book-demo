@@ -47,7 +47,7 @@ public class BookController {
         {
             model.addAttribute("books", bookService.findBooks()); //? Find all books in BookRepo.java and adds the data to model
         }
-        else //? If first name and last name a specified
+        else //? If first name and last name are specified
         {
             logger.info("Author Name: ", firstName + " " + lastName); //? Display author name to the console
             model.addAttribute("books", bookService.findBooksByAuthor(firstName,lastName)); //? Finds all book based on other name in BooksRepo.java and adds the data to model
@@ -66,70 +66,108 @@ public class BookController {
 
 
     //! Programming Assignment #2
+    //!http://localhost:8080/LastNameStartingWith :::: DONE ::::
     @GetMapping("/LastNameStartingWith")
-    public String getLastNameStartingWith(Model model) {
-    
-        char letter = 'G';
-        model.addAttribute("authors", bookService.findLastNameStartingWith(letter));
+    public String getLastNameStartingWith(@RequestParam(required=false) String letter, Model model) {
+
+        char validChar;
+        boolean inValid = letter == null || letter.isEmpty() || letter.length() > 1;
+        
+        if (inValid)
+        {
+            model.addAttribute("books", bookService.findBooks());
+        }
+        else
+        {
+            validChar = letter.charAt(0);
+
+            model.addAttribute("authors", bookService.findLastNameStartingWith(validChar));
+        }
 
         return "authors";
     
     }
 
     @GetMapping("/LastNameContaining")
-    public String getLastNameContaining(Model model) {
-    
-        String sequence = "ant";
-        model.addAttribute("authors", bookService.findLastNameContaining(sequence));
+    public String getLastNameContaining(@RequestParam(required=false) String sequence, Model model) {
+
+        boolean sequenceInvalid = sequence == null || sequence.isEmpty();
+        
+        if (sequenceInvalid)
+        {
+            model.addAttribute("books", bookService.findBooks());
+        }
+        else
+        {
+            model.addAttribute("books", model.addAttribute("authors", bookService.findLastNameContaining(sequence)));
+        }
 
         return "authors";
     
     }
     
-    @GetMapping("/AuthorOrderByPriceDesc")
-    public String getAuthorOrderByPriceDesc(Model model) {
-    
-        String lastName = "Skeen";
+    //! http://localhost:8080/OrderByPriceDesc :::: DONE ::::
+    @GetMapping("/OrderByPriceDesc")
+    public String getOrderByPriceDesc(Model model) {
 
-        model.addAttribute("books", bookService.findAuthorOrderByPriceDesc(lastName));
-
-        return "books";
-    
-    }
-
-    @GetMapping("/AuthorAndTitleContainingAndTitleContaining")
-    public String getAuthorAndTitleContainingAndTitleContaining(Model model) {
-    
-        String lastName = "Skeen";
-        String keyword1 = "Big";
-        String keyword2 = "Guide";
-
-        model.addAttribute("books", bookService.findAuthorAndTitleContainingAndTitleContaining(lastName, keyword1, keyword2));
+        model.addAttribute("books", bookService.findAllByOrderByPriceDesc());
 
         return "books";
     
     }
 
-    @GetMapping("/AuthorAndTitleNotContaining")
-    public String getAuthorAndTitleNotContaining(Model model) {
-    
-        String lastName = "Savich";
-        String keyword = "Introduction";
+    //! http://localhost:8080/TitleContainingAndTitleContaining :::: DONE ::::
+    @GetMapping("/TitleContainingAndTitleContaining")
+    public String getTitleContainingAndTitleContaining(@RequestParam(required=false) String keyword1, @RequestParam(required=false) String keyword2, Model model) {
 
-        model.addAttribute("books", bookService.findAuthorAndTitleNotContaining(lastName, keyword));
+        boolean keywordsInvalid = keyword1 == null || keyword1.isEmpty() || keyword2 == null || keyword2.isEmpty();
+        
+        if (keywordsInvalid)
+        {
+            model.addAttribute("books", bookService.findBooks());
+        }
+        else
+        {
+            model.addAttribute("books", bookService.findAllByTitleContainingAndTitleContaining(keyword1, keyword2));
+        }
 
         return "books";
     
     }
 
-    @GetMapping("/AuthorAndTitleContainingAndTitleNotContaining")
-    public String getAuthorAndTitleContainingAndTitleNotContaining(Model model) {
-    
-        String lastName = "Savich";
-        String isKeyword = "Java";
-        String notKeyword = "Introduction";
+    //! http://localhost:8080//TitleNotContaining :::: DONE ::::
+    @GetMapping("/TitleNotContaining")
+    public String getTitleNotContaining(@RequestParam(required=false) String keyword, Model model) {
 
-        model.addAttribute("books", bookService.findAuthorAndTitleContainingAndTitleNotContaining(lastName, isKeyword, notKeyword));
+        boolean keywordInvalid = keyword == null || keyword.isEmpty();
+        
+        if (keywordInvalid)
+        {
+            model.addAttribute("books", bookService.findBooks());
+        }
+        else
+        {
+            model.addAttribute("books", bookService.findAllByTitleNotContaining(keyword));
+        }
+
+        return "books";
+    
+    }
+
+    //! http://localhost:8080/TitleContainingAndTitleNotContaining :::: DONE ::::
+    @GetMapping("/TitleContainingAndTitleNotContaining")
+    public String getTitleContainingAndTitleNotContaining(@RequestParam(required=false) String isKeyword, @RequestParam(required=false) String notKeyword, Model model) {
+
+        boolean keywordInvalid = isKeyword == null || isKeyword.isEmpty() || notKeyword == null || notKeyword.isEmpty();
+        
+        if (keywordInvalid)
+        {
+            model.addAttribute("books", bookService.findBooks());
+        }
+        else
+        {
+            model.addAttribute("books", bookService.findAllByTitleContainingAndTitleNotContaining(isKeyword, notKeyword));
+        }
 
         return "books";
     

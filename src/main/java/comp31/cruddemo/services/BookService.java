@@ -51,8 +51,7 @@ public class BookService {
 
     public List<Book> test()
     {
-        Author author = authorRepo.findOneByLastName("Savich");
-        return bookRepo.findByAuthorOrderByPriceDesc(author);
+        return null;
     }
 
     //! Programming Assignment #2
@@ -68,35 +67,27 @@ public class BookService {
     
     }
 
-    public List<Book> findAuthorOrderByPriceDesc(String lastName) {
+    public List<Book> findAllByOrderByPriceDesc() {
 
-        Author author = authorRepo.findOneByLastName(lastName);
-
-        return bookRepo.findByAuthorOrderByPriceDesc(author);
+        return bookRepo.findAllByOrderByPriceDesc();
     
     }
 
-    public List<Book> findAuthorAndTitleContainingAndTitleContaining(String lastName, String keyword1, String keyword2) {
-
-        Author author = authorRepo.findOneByLastName(lastName);
+    public List<Book> findAllByTitleContainingAndTitleContaining(String keyword1, String keyword2) {
     
-        return bookRepo.findByAuthorAndTitleContainingAndTitleContaining(author, keyword1, keyword2);
+        return bookRepo.findAllByTitleContainingAndTitleContainingIgnoreCase(keyword1, keyword2);
     
     }
 
-    public List<Book> findAuthorAndTitleNotContaining(String lastName, String keyword) {
-
-        Author author = authorRepo.findOneByLastName(lastName);
+    public List<Book> findAllByTitleNotContaining(String keyword) {
     
-        return bookRepo.findByAuthorAndTitleNotContaining(author, keyword);
+        return bookRepo.findAllByTitleNotContainingIgnoreCase(keyword);
     
     }
 
-    public List<Book> findAuthorAndTitleContainingAndTitleNotContaining(String lastName, String isKeyword, String notKeyword) {
-
-        Author author = authorRepo.findOneByLastName(lastName);
+    public List<Book> findAllByTitleContainingAndTitleNotContaining(String isKeyword, String notKeyword) {
     
-        return bookRepo.findByAuthorAndTitleContainingAndTitleNotContaining(author, isKeyword, notKeyword);
+        return bookRepo.findAllByTitleContainingAndTitleNotContainingIgnoreCase(isKeyword, notKeyword);
     
     }
 

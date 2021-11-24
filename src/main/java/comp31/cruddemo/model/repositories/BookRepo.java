@@ -19,9 +19,9 @@ public interface BookRepo extends CrudRepository<Book,Long> {
     List<Book> findByAuthorAndTitleContaining(Author author, String keyword); //? Automatically creates the correct search for author with the specified title name
 
     //! Programming Assignment #2
-    List<Book> findByAuthorOrderByPriceDesc(Author author);
-    List<Book> findByAuthorAndTitleContainingAndTitleContaining(Author author, String keyword1, String keyword2);
-    List<Book> findByAuthorAndTitleNotContaining(Author author, String keyword1);
-    List<Book> findByAuthorAndTitleContainingAndTitleNotContaining(Author author, String isKeyword, String notKeyword);
+    List<Book> findAllByOrderByPriceDesc();
+    List<Book> findAllByTitleContainingAndTitleContainingIgnoreCase(String keyword1, String keyword2);
+    List<Book> findAllByTitleNotContainingIgnoreCase(String keyword);
+    List<Book> findAllByTitleContainingAndTitleNotContainingIgnoreCase(String isKeyword, String notKeyword);
     
 }
